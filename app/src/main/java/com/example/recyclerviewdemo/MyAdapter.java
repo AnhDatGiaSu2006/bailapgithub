@@ -19,7 +19,12 @@ public class MyAdapter extends RecyclerView.Adapter<CountryViewHolder> {
     public CountryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.country_layout, parent, false);
-        return new CountryViewHolder(itemView);
+        return new CountryViewHolder(itemView, position -> {
+            Article article = articleList.get(position);
+            article.setViews(article.getViews() + 1);
+            // Báo RecyclerView vẽ lại bài viết vừa được nhấn.
+            notifyItemChanged(position);
+        });
     }
 
     @Override
