@@ -1,5 +1,6 @@
 package com.example.recyclerviewdemo;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,14 @@ public class MyAdapter extends RecyclerView.Adapter<CountryViewHolder> {
             article.setViews(article.getViews() + 1);
             // Báo RecyclerView vẽ lại bài viết vừa được nhấn.
             notifyItemChanged(position);
+
+            // Gửi dữ liệu bài viết sang màn hình chi tiết sau khi tăng lượt xem.
+            Intent intent = new Intent(itemView.getContext(), ArticleDetailActivity.class);
+            intent.putExtra(ArticleDetailActivity.EXTRA_TITLE, article.getTitle());
+            intent.putExtra(ArticleDetailActivity.EXTRA_CONTENT, article.getContent());
+            intent.putExtra(ArticleDetailActivity.EXTRA_IMAGE, article.getImgCourse());
+            intent.putExtra(ArticleDetailActivity.EXTRA_VIEWS, article.getViews());
+            itemView.getContext().startActivity(intent);
         });
     }
 
